@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <link rel="stylesheet" href="./build/tailwind.css">
+</head>
+<body class="bg-indigo-950 transition-all">
+
+    <header class="flex justify-center mt-20">
+        <h1 class="text-indigo-700 font-bold text-5xl mb-10">My Todos</h1>
+    </header>
+
+    <section class="max-w-sm mx-auto md:max-w-lg lg:max-w-xl xl:max-w-2xl">
+        <!-- adding todo form -->
+        <form action="submit" id="todo-form" class="flex items-center p-5 gap-x-2 mb-5">
+            <div class="flex flex-col gap-y-2">
+                <button id="add-todo__btn" action="" class="bg-indigo-600 p-4 rounded text-indigo-950">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                  </svg>
+                  </button>
+            </div>
+            <input id="todo-input" type="text" placeholder="اینجا بنویسید..." 
+            class="border border-indigo-500 bg-transparent w-full py-6 px-2 rounded-lg text-sm text-indigo-400">
+        </form>
+        <!-- controller btns -->
+        <div class="flex items-center justify-center gap-x-4 mb-9">
+            <button class="controllers bg-indigo-500 border-2 border-indigo-800 p-2 rounded-lg text-sm md:p-2.5 md:text-base text-indigo-950 hover:bg-indigo-600" value="all">همه</button>
+            <button class="controllers bg-indigo-500 border-2 border-indigo-800 p-2 rounded-lg text-sm md:p-2.5 md:text-base text-indigo-950 hover:bg-indigo-600" value="completed">انجام شده‌ها</button>
+            <button class="controllers bg-indigo-500 border-2 border-indigo-800 p-2 rounded-lg text-sm md:p-2.5 md:text-base text-indigo-950 hover:bg-indigo-600" value="uncompleted">انجام نشده‌ها</button>
+        </div>
+
+        <!-- todo lists -->
+        <h1 class="text-indigo-400 text-md font-bold">وظایف امروز من:</h1>
+        <div class="p-5" id="todo-list__container">
+            <!-- single todo -->
+            
+        </div>
+    </section>
+    <script src="./build/js/app.js" type="module"></script>
+</body>
+</html>
