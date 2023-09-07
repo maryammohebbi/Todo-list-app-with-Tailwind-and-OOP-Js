@@ -3,14 +3,14 @@ import Storage from "./Storage.js";
 // selecting
 const todoFrom = document.querySelector("#todo-form");
 const todoTitle = document.querySelector("#todo-input")
-const addTodoBtn = document.querySelector("#add-todo__btn")
-const controllerBtns = document.querySelectorAll(".controllers")
+const filterBtns = document.querySelectorAll(".filters")
 const todoListContainer = document.querySelector("#todo-list__container")
-
 
 class TodoView{
     constructor(){
-        todoFrom.addEventListener("submit",(e)=> this.addNewTodo(e))
+        //events
+        todoFrom.addEventListener("submit", (e)=> this.addNewTodo(e))
+        filterBtns.forEach(btn => btn.addEventListener("click", (e)=> this.filterTodos(e)))
         this.allTodos = [];
     }
 
@@ -28,11 +28,11 @@ class TodoView{
         this.allTodos = Storage.getAllTodos();
         this.createTodos(this.allTodos);
         todoTitle.value = "";
+        this.filterTodos(e)
     }
     setApp(){
         this.allTodos = Storage.getAllTodos();
     }
-
     createTodos(todos){
         let result="";
         todos.forEach(todo => {
@@ -41,8 +41,8 @@ class TodoView{
             <div class="flex justify-between"> 
                 <!-- check and text -->
                 <div class="flex items-center justify-start gap-x-3 mb-2">
-                    <input type="checkbox" name="" id="" class="bg-indigo-400 p-2 text-indigo-500 focus:ring-indigo-800">
-                    <span class="text-indigo-100 text-sm md:text-md lg:text-lg">${todo.title}</span>
+                    <label><input type="checkbox" name="check-todo" id=""  data-todo-id=${todo.id} class="check-btn bg-indigo-400 p-2 text-indigo-500 focus:ring-indigo-800"></label>
+                    <p class="text-indigo-100 text-sm md:text-md lg:text-lg ${todo.isCompleted ? "completed" : ""}">${todo.title}</p>
                 </div>
                 <!-- star -->
                 <button class="text-indigo-500 mb-4">
@@ -75,20 +75,45 @@ class TodoView{
                 </button>
             </div>         
         </div>
-            `
+        `
         });
         todoListContainer.innerHTML = result;
         const deleteBtns = document.querySelectorAll(".delete-btn");
         deleteBtns.forEach(btn => btn.addEventListener("click", (e)=> this.deleteTodo(e)))
+        const checkBtns = document.querySelectorAll(".check-btn")
+        checkBtns.forEach(btn => btn.addEventListener("change", (e)=> this.checkTodo(e)))
     }
-
     deleteTodo(e){
         const todoId = Number(e.target.dataset.todoId);
         Storage.deleteTodo(todoId);
         this.allTodos = Storage.getAllTodos();
         this.createTodos(this.allTodos);
-        console.log(e.target.dataset.todoId);
-        }
-}
+        // console.log(e.target.dataset.todoId);
+    }
+    checkTodo(e){
+        const todoId = Number(e.target.dataset.todoId)
+        this.allTodos = Storage.getAllTodos();
+        const todo = this.allTodos.find(t => t.id === todoId)
+        todo.isCompleted = !todo.isCompleted
+        // e.target.checked = !e.target.checked
+        Storage.saveAllTodos(this.allTodos)
+        this.createTodos(this.allTodos)
+        // console.log(e.target)
 
+    }
+    filterTodos(e){
+        e.preventDefault()
+        this.allTodos = Storage.getAllTodos()
+        const filterBtnValue = e.target.value
+        if(filterBtnValue == "all"){
+            this.createTodos(this.allTodos)
+        }else if (filterBtnValue == "completed"){
+            const filteredTodos = this.allTodos.filter(t => t.isCompleted);
+            this.createTodos(filteredTodos)
+        }else{
+            const filteredTodos = this.allTodos.filter(t => !t.isCompleted)
+            this.createTodos(filteredTodos)
+        }
+    }
+}
 export default new TodoView();
