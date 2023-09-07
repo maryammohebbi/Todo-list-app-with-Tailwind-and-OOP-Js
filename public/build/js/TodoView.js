@@ -5,12 +5,19 @@ const todoFrom = document.querySelector("#todo-form");
 const todoTitle = document.querySelector("#todo-input")
 const filterBtns = document.querySelectorAll(".filters")
 const todoListContainer = document.querySelector("#todo-list__container")
+const editTodoModal = document.querySelector("#modal-edit")
+const backDrop = document.querySelector("#backdrop")
+const editInput = document.querySelector("#edit-input")
+const editForm = document.querySelector("#edit-form");
+
 
 class TodoView{
     constructor(){
         //events
         todoFrom.addEventListener("submit", (e)=> this.addNewTodo(e))
         filterBtns.forEach(btn => btn.addEventListener("click", (e)=> this.filterTodos(e)))
+        backDrop.addEventListener("click", this.closeEditModal)
+        editForm.addEventListener("submit", (e)=> this.saveEditedTodo(e))
         this.allTodos = [];
     }
 
@@ -82,13 +89,14 @@ class TodoView{
         deleteBtns.forEach(btn => btn.addEventListener("click", (e)=> this.deleteTodo(e)))
         const checkBtns = document.querySelectorAll(".check-btn")
         checkBtns.forEach(btn => btn.addEventListener("change", (e)=> this.checkTodo(e)))
+        const editBtns = document.querySelectorAll(".edit-btn");
+        editBtns.forEach(btn => btn.addEventListener("click", (e)=> this.editModalOpen(e)))
     }
     deleteTodo(e){
         const todoId = Number(e.target.dataset.todoId);
         Storage.deleteTodo(todoId);
         this.allTodos = Storage.getAllTodos();
         this.createTodos(this.allTodos);
-        // console.log(e.target.dataset.todoId);
     }
     checkTodo(e){
         const todoId = Number(e.target.dataset.todoId)
@@ -98,7 +106,8 @@ class TodoView{
         // e.target.checked = !e.target.checked
         Storage.saveAllTodos(this.allTodos)
         this.createTodos(this.allTodos)
-        // console.log(e.target)
+        // this.filterTodos(e)
+
 
     }
     filterTodos(e){
@@ -114,6 +123,32 @@ class TodoView{
             const filteredTodos = this.allTodos.filter(t => !t.isCompleted)
             this.createTodos(filteredTodos)
         }
+    }
+    editModalOpen(e){
+        e.preventDefault()
+        editTodoModal.classList.remove("hidden")
+        backDrop.classList.remove("hidden")
+        this.allTodos = Storage.getAllTodos()
+        const todoId = Number(e.target.dataset.todoId)
+        const todoToEdit = this.allTodos.find(t => t.id == todoId)
+        editInput.value = todoToEdit.title
+        editForm.id = todoId
+
+    }
+    saveEditedTodo(e){
+        e.preventDefault()
+        const editTodoId = e.target.id;
+        this.allTodos = Storage.getAllTodos()
+        const todo = this.allTodos.find(t => t.id == editTodoId)
+        todo.title = editInput.value
+        Storage.saveAllTodos(this.allTodos)
+        this.createTodos(this.allTodos)
+        this.filterTodos(e)
+        this.closeEditModal()
+    }
+    closeEditModal(){
+        editTodoModal.classList.add("hidden")
+        backDrop.classList.add("hidden")
     }
 }
 export default new TodoView();
