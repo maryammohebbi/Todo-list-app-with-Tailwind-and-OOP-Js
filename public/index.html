@@ -6,7 +6,7 @@
     <title>To Do List</title>
     <link rel="stylesheet" href="./build/tailwind.css">
 </head>
-<body class="bg-indigo-950 transition-all">
+<body class="bg-indigo-950 transition-all duration-400 ease-in">
 
     <header class="flex justify-center mt-20">
         <h1 class="text-indigo-700 font-bold text-5xl mb-10">My Todos</h1>
@@ -27,9 +27,9 @@
         </form>
         <!-- controller btns -->
         <div class="flex items-center justify-center gap-x-4 mb-9">
-            <button class="filters bg-indigo-500 border-2 border-indigo-800 p-2 rounded-lg text-sm md:p-2.5 md:text-base text-indigo-950 hover:bg-indigo-600" value="all">همه</button>
-            <button class="filters bg-indigo-500 border-2 border-indigo-800 p-2 rounded-lg text-sm md:p-2.5 md:text-base text-indigo-950 hover:bg-indigo-600" value="completed">انجام شده‌ها</button>
-            <button class="filters bg-indigo-500 border-2 border-indigo-800 p-2 rounded-lg text-sm md:p-2.5 md:text-base text-indigo-950 hover:bg-indigo-600" value="uncompleted">انجام نشده‌ها</button>
+            <button class="filters active bg-indigo-500 border-2 border-indigo-800 p-2 rounded-lg text-sm md:p-2.5 md:text-base text-indigo-950 hover:bg-indigo-600 transition-all duration-500 ease-in" value="all">همه</button>
+            <button class="filters bg-indigo-500 border-2 border-indigo-800 p-2 rounded-lg text-sm md:p-2.5 md:text-base text-indigo-950 hover:bg-indigo-600 transition-all duration-500 ease-in" value="completed">انجام شده‌ها</button>
+            <button class="filters bg-indigo-500 border-2 border-indigo-800 p-2 rounded-lg text-sm md:p-2.5 md:text-base text-indigo-950 hover:bg-indigo-600 transition-all duration-500 ease-in" value="uncompleted">انجام نشده‌ها</button>
         </div>
 
         <!-- todo lists -->

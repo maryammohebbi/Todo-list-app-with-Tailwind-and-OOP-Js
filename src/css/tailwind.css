@@ -6,3 +6,7 @@
     text-decoration: line-through;
     opacity: 0.4;
 }
+
+.active{
+    background-color: rgb(79 70 229 / var(--tw-bg-opacity));
+}
