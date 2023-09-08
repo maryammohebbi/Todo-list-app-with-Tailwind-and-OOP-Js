@@ -17,13 +17,6 @@ export default class Storage{
         const filteredTodos = allTodos.filter(t => t.id !== id);
         localStorage.setItem("todos", JSON.stringify(filteredTodos))
     }
-    // static checkTodo(id){
-    //     const allTodos = this.getAllTodos();
-    //     const toCheckTodo = allTodos.find(todo => todo.id === id);
-    //     toCheckTodo.isCompleted = !toCheckTodo.isCompleted;
-    //     this.saveAllTodos(allTodos)
-
-    // }
 
     static saveAllTodos(todos){
         localStorage.setItem("todos", JSON.stringify(todos))

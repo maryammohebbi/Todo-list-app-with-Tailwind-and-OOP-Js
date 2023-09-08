@@ -10,3 +10,9 @@
 .active{
     background-color: rgb(79 70 229 / var(--tw-bg-opacity));
 }
+
+.activeStar{
+    fill: yellow;
+    width: 2rem;
+    height: 2rem;
+}

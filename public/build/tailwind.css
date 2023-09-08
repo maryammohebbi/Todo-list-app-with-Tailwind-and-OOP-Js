@@ -785,6 +785,9 @@ select {
 .gap-y-2 {
   row-gap: 0.5rem;
 }
+.overflow-hidden {
+  overflow: hidden;
+}
 .rounded {
   border-radius: 0.25rem;
 }
@@ -934,11 +937,11 @@ select {
 .ease-in {
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
 }
-.ease-out {
-  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-}
 .ease-in-out {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.ease-out {
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 
 .completed{
@@ -948,6 +951,12 @@ select {
 
 .active{
     background-color: rgb(79 70 229 / var(--tw-bg-opacity));
+}
+
+.activeStar{
+    fill: yellow;
+    width: 2rem;
+    height: 2rem;
 }
 
 .hover\:bg-indigo-600:hover {
