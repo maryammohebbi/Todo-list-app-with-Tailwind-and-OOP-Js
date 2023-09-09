@@ -432,6 +432,11 @@ input::placeholder,textarea::placeholder {
 
 ::-webkit-date-and-time-value {
   min-height: 1.5em;
+  text-align: inherit;
+}
+
+::-webkit-datetime-edit {
+  display: inline-flex;
 }
 
 ::-webkit-datetime-edit,::-webkit-datetime-edit-year-field,::-webkit-datetime-edit-month-field,::-webkit-datetime-edit-day-field,::-webkit-datetime-edit-hour-field,::-webkit-datetime-edit-minute-field,::-webkit-datetime-edit-second-field,::-webkit-datetime-edit-millisecond-field,::-webkit-datetime-edit-meridiem-field {
@@ -730,6 +735,9 @@ select {
 .h-full {
   height: 100%;
 }
+.h-5 {
+  height: 1.25rem;
+}
 .w-4 {
   width: 1rem;
 }
@@ -744,6 +752,9 @@ select {
 }
 .w-full {
   width: 100%;
+}
+.w-5 {
+  width: 1.25rem;
 }
 .max-w-sm {
   max-width: 24rem;
@@ -784,9 +795,6 @@ select {
 }
 .gap-y-2 {
   row-gap: 0.5rem;
-}
-.overflow-hidden {
-  overflow: hidden;
 }
 .rounded {
   border-radius: 0.25rem;
@@ -841,6 +849,14 @@ select {
 }
 .bg-transparent {
   background-color: transparent;
+}
+.bg-red-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 113 113 / var(--tw-bg-opacity));
+}
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 .p-1 {
   padding: 0.25rem;

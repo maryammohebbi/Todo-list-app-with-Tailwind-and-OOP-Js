@@ -26,7 +26,6 @@ class TodoView{
         editForm.addEventListener("submit", (e)=> this.saveEditedTodo(e));
         this.allTodos = [];
     }
-
     addNewTodo(e){
         e.preventDefault();
         const title = todoTitle.value;
@@ -55,7 +54,11 @@ class TodoView{
             <div class="flex justify-between"> 
                 <!-- check and text -->
                 <div class="flex items-center justify-start gap-x-3 mb-2">
-                    <label><input type="checkbox" name="check-todo" id=""  data-todo-id=${todo.id} class="check-btn bg-indigo-400 p-2 text-indigo-500 focus:ring-indigo-800"></label>
+                    <button data-todo-id=${todo.id} class="check-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 pointer-events-none text-indigo-400">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </button>                                     
                     <p class="text-indigo-100 text-sm md:text-md lg:text-lg ${todo.isCompleted ? "completed" : ""}">${todo.title}</p>
                 </div>
                 <!-- star -->
@@ -97,12 +100,11 @@ class TodoView{
         const deleteBtns = document.querySelectorAll(".delete-btn");
         deleteBtns.forEach(btn => btn.addEventListener("click", (e)=> this.deleteTodo(e)))
         const checkBtns = document.querySelectorAll(".check-btn")
-        checkBtns.forEach(btn => btn.addEventListener("change", (e)=> this.checkTodo(e)))
+        checkBtns.forEach(btn => btn.addEventListener("click", (e)=> this.checkTodo(e)))
         const editBtns = document.querySelectorAll(".edit-btn");
         editBtns.forEach(btn => btn.addEventListener("click", (e)=> this.editModalOpen(e)))
         const starBtns = document.querySelectorAll(".star-btn");
         starBtns.forEach(btn => btn.addEventListener("click", (e)=> this.staredTodo(e)))
-        // this.filterTodos();
     }
     deleteTodo(e){
         const todoId = Number(e.target.dataset.todoId);
@@ -111,14 +113,15 @@ class TodoView{
         this.createTodos(this.allTodos);
     }
     checkTodo(e){
+        e.preventDefault();
         const todoId = Number(e.target.dataset.todoId)
         this.allTodos = Storage.getAllTodos();
         const todo = this.allTodos.find(t => t.id === todoId)
         todo.isCompleted = !todo.isCompleted
         // e.target.checked = !e.target.checked
+        console.log(e.target);
         Storage.saveAllTodos(this.allTodos)
         this.createTodos(this.allTodos)
-        // this.filterTodos(e)
     }
     filterTodos(e){
         e.preventDefault()
@@ -126,7 +129,6 @@ class TodoView{
         const filterBtnValue = e.target.value
         if(filterBtnValue == "all"){
             this.createTodos(this.allTodos)
-            // e.target.classList.add("active")
         }else if (filterBtnValue == "completed"){
             const filteredTodos = this.allTodos.filter(t => t.isCompleted);
             this.createTodos(filteredTodos)
@@ -144,7 +146,6 @@ class TodoView{
         const todoToEdit = this.allTodos.find(t => t.id == todoId)
         editInput.value = todoToEdit.title
         editForm.id = todoId
-
     }
     saveEditedTodo(e){
         e.preventDefault()
@@ -154,10 +155,8 @@ class TodoView{
         todo.title = editInput.value
         Storage.saveAllTodos(this.allTodos)
         this.createTodos(this.allTodos)
-        // this.filterTodos(e)
         this.closeEditModal()
     }
-
     staredTodo(e){
         const todoId = Number(e.target.dataset.todoId)
         this.allTodos = Storage.getAllTodos();
@@ -166,7 +165,6 @@ class TodoView{
         todo.isStared = !todo.isStared
         Storage.saveAllTodos(this.allTodos)
         this.createTodos(this.allTodos)
-        // console.log(e.target);
     }
     closeEditModal(){
         editTodoModal.classList.add("hidden")
